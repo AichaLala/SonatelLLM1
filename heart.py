@@ -1,9 +1,8 @@
 # heart.py
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from agent import ask_agent
-from tool import check_exhaustivite, build_graph_json, ask_neo4j
+from agent import ask_agent  #  LLM + ses outils
 
 app = FastAPI()
 
@@ -20,14 +19,5 @@ class AskRequest(BaseModel):
 
 @app.post("/ask")
 def ask(request: AskRequest):
-    question = request.question.lower()
-
-    if "source" in question or "cible" in question:
-        return {"graph": build_graph_json(question)}
-
-    if "exhaustive" in question or "exhaustivite" in question:
-        return {"graph": check_exhaustivite(question)}
-
-    # Métadonnées simples
-    metadata = ask_neo4j(question)
-    return {"response": metadata}
+    response = ask_agent(request.question)
+    return {"response": response}
