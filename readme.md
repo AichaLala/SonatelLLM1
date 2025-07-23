@@ -1,4 +1,4 @@
-2. ✅ Prérequis
+ Prérequis
 🐍 Python 3.10+
 python --version
 📦 Installer les dépendances
@@ -27,7 +27,7 @@ Docs Swagger : http://localhost:8000/docs
 Requête POST
 POST http://localhost:8000/ask
 Header:
-COntent-Type:application/json
+Content-Type:application/json
 Exemple de corps JSON
 
 {
@@ -37,12 +37,12 @@ Exemple de corps JSON
 💡 Exemples de questions
 Quelle est la source de la table cdrnm ?
 
-Quelle est la cible de trusted_report_bundle_offer ?
+Quelle est la cible de BOX_5G_GIAI ?
 
-Quelle est la fréquence d’ingestion de client_kpi ?
+Quelle est la fréquence d’ingestion de Y ?
 
 La table sargal est-elle suivie ?
 
-La table transactions est-elle exhaustive ?
+La table transactions est-elle exhaustive le 27/03/2023 ?
 
 ⚠️ Pour l’exhaustivité, l’API ajoute automatiquement le préfixe trusted_ au nom de la table.
