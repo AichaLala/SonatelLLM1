@@ -1,34 +1,48 @@
-# 🧠 Assistant Métadonnées (API FastAPI + Neo4j + Ollama)
+2. ✅ Prérequis
+🐍 Python 3.10+
+python --version
+📦 Installer les dépendances
+pip install -r requirements.txt
+🌐 Neo4j local
+Installer Neo4j Desktop : https://neo4j.com/download/
 
-Ce projet est une API FastAPI permettant d'interroger des métadonnées de tables Hive stockées dans Neo4j en langage naturel, grâce à un modèle de langage local (LLM Mistral via Ollama).
+Créer une base locale avec :
+URI : bolt://localhost:7687
+Username : neo4j
+Password : Sonatel2025
 
----
+🧠 Modèle LLM (Mistral via Ollama)
+Installer Ollama : https://ollama.com/download
+Lancer le modèle :
+ollama run mistral
+⚠️ Obligatoire : le modèle Mistral doit être actif en fond sinon l’API ne pourra pas répondre.
 
-## 🚀 Fonctionnalités
 
-- Obtenir la **source directe** ou la **lignée complète** d’une table
-- Obtenir la **cible directe** d’une table
-- Obtenir la **date de création** d’une table
-- Obtenir le **propriétaire** d’une table
-- Réponse automatique en langage naturel via **LLM Mistral (Ollama)** si la question n’est pas comprise
+▶️ Lancer l’API
+uvicorn heart:app --reload
+Accès API : http://localhost:8000
+Docs Swagger : http://localhost:8000/docs
 
----
+📮 Utilisation dans Postman
+Requête POST
+POST http://localhost:8000/ask
+Header:
+COntent-Type:application/json
+Exemple de corps JSON
 
-## 🛠️ Technologies utilisées
+{
+  "question": "Quelle est la source de la table cdrnm ?"
+}
 
-- **FastAPI** : Serveur web et endpoints REST
-- **Neo4j** : Base de données de graphes pour stocker les relations entre tables
-- **LangChain + Ollama (Mistral)** : Génération de réponses en langage naturel
-- **HTML + JavaScript** : Interface simple de test local
+💡 Exemples de questions
+Quelle est la source de la table cdrnm ?
 
----
+Quelle est la cible de trusted_report_bundle_offer ?
 
-## 📁 Structure du projet
+Quelle est la fréquence d’ingestion de client_kpi ?
 
-```bash
-api_LLM/
-├── apillm.py             # Code principal de l’API FastAPI
-├── requirements.txt      # Dépendances Python
-├── index.html            # Interface locale web (facultative)
-├── Documentation_Assistant_Metadata.docx  # Document de description complet
-└── venv/                 # Environnement virtuel Python
+La table sargal est-elle suivie ?
+
+La table transactions est-elle exhaustive ?
+
+⚠️ Pour l’exhaustivité, l’API ajoute automatiquement le préfixe trusted_ au nom de la table.
